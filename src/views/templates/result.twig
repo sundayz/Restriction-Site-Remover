@@ -1,0 +1,42 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<div class="container">
+    <h3>Successfully Parsed DNA</h3>
+    <div class="row">
+        {% if showDebug %}
+        <div class="col-xs-12">
+            <h4>Debug Information</h4>
+            <p><strong></strong></p>
+            <p><strong>Iterations: </strong>{{ info.iterations }}</p>
+            <p><strong>Failed mutations: </strong>{{ info.failedmutations }}</p>
+            <p><strong>Mutations induced: </strong>{{ info.mutations }}</p>
+            <p><strong>Restriction sites checked: </strong>{{ info.checked }}</p>
+            <p><strong>Restriction sites found: </strong>{{ info.found }}</p>
+            <p><strong>Time taken: </strong>{{ info.timetaken }}</p>
+            <pre>
+            {% for site in sites %}
+{{ site.getName() }} ({{ site.getNucleotides() }}) Checked
+            {% endfor %}
+            </pre>
+        </div>
+        {% endif %}
+
+        <div class="col-xs-12">
+            <h4>Sequence Interpretation</h4>
+            <div class="well well-sm">{{ inputdna }}</div>
+        </div>
+
+        <div class="col-xs-12">
+            <h4>Raw Data</h4>
+            <textarea class="dna-text-area" rows="5">{{ dnaresult.raw }}</textarea>
+        </div>
+
+        <div class="col-xs-12">
+            <h4>Formatted Data</h4>
+            <p>Silent muations are <span class="bg-primary">highlighted.</span> Line breaks every 100 characters.</p>
+            <div class="well well-sm" style="font-family:monospace;">{{ dnaresult.formatted | raw }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
