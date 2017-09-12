@@ -1,5 +1,10 @@
 # Restriction Site Remover
 
+## Build status
+| Branch | master |
+|:------:|:------:|
+| Status |[![Build Status](https://travis-ci.org/sundayz/Restriction-Site-Remover.svg)](https://travis-ci.org/sundayz/Restriction-Site-Remover)|
+
 ## Dependencies
 - PHP >= 7.1
 - Composer (dependency management)
