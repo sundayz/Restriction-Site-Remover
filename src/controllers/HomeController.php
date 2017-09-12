@@ -13,11 +13,6 @@ class HomeController extends BaseController
     public function parseDNA()
     {
         $t1 = microtime(true);
-        $userinput = array(
-            'seq' => Flight::request()->data->dnasequence,
-            'customtargets' => Flight::request()->data->customtargets
-        );
-        $this->putData('userinput', $userinput);
         if (Flight::request()->data->dnasequence == null || Flight::request()->data->dnasequence == '')
         {
             $this->showErrorMessage('A DNA sequence must be provided.');
@@ -76,6 +71,16 @@ class HomeController extends BaseController
             exit(1);
         }
 
+        if (isset(Flight::request()->data->checkcomplements))
+        {
+            $temp = array(); // Array of complements.
+            foreach ($restrictionSites as $site)
+                array_push($temp, $site->getComplement());
+
+            foreach ($temp as $complementSite)
+                array_push($restrictionSites, $complementSite);
+        }
+
         try
         {
             $dna->findRestrictionSites($restrictionSites);
@@ -113,10 +118,15 @@ class HomeController extends BaseController
     private function showErrorMessage(string $msg)
     {
         $rsDropdownData = RestrictionSites::getSites(); // Populate dropdown.
+        $userinput = array(                             // Preserve user input.
+            'seq' => Flight::request()->data->dnasequence,
+            'customtargets' => Flight::request()->data->customtargets
+        );
+
+        $this->putData('userinput', $userinput);
         $this->putData('hasError', true);
         $this->putData('errorText', $msg);
         $this->putData('pageTitle', 'RSR &mdash; An Error Has Occurred!');
-        $this->putData('userinput', Flight::request()->query->dnasequence);
         $this->putData('pageTitle', 'Home');
         $this->putData('rsdata', $rsDropdownData);
         $this->render('templates/RSR.twig');

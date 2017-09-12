@@ -32,22 +32,50 @@ class DNASequence
         );
     }
 
+    /**
+     * @return DNAResult Raw and formatted data.
+     */
     public function getResult(): DNAResult
     {
         $result = new DNAResult();
         $result->raw = $this->sequence;
         $result->formatted = $this->sequence;
-        // Insert tags at the positions where we mutated sites, in reverse order.
-        // Sort indices based on the 2nd number.
-        $sorted = array();
-        foreach ($this->info['mutationIndices'] as $key => $val)
-            $sorted[$key] = $val[1];
-
-        array_multisort($sorted, SORT_ASC, $this->info['mutationIndices']);
-        for ($i = count($this->info['mutationIndices']) - 1; $i >= 0; --$i)
+        if (count($this->info['mutationIndices']) > 1)
         {
-            $result->formatted = substr_replace($result->formatted, '</span>', $this->info['mutationIndices'][$i][1], 0);
-            $result->formatted = substr_replace($result->formatted, '<span class="bg-primary">', $this->info['mutationIndices'][$i][0], 0);
+            // Insert tags at the positions where we mutated sites, in reverse order.
+            // Sort indices based on the 2nd number.
+            $sorted = array();
+            foreach ($this->info['mutationIndices'] as $key => $val)
+                $sorted[$key] = $val[1];
+
+            array_multisort($sorted, SORT_ASC, $this->info['mutationIndices']);
+            // Remove duplicates.
+            $temp = array();
+            array_push($temp, $this->info['mutationIndices'][0]);
+            foreach ($this->info['mutationIndices'] as $key => $val)
+            {
+                $count = 0;
+                $skip = false;
+                do
+                {
+                    if ($temp[$count][0] == $val[0] && $temp[$count][1] == $val[1])
+                    {
+                        $skip = true;
+                        break;
+                    }
+                    ++$count;
+                } while ($count < count($temp));
+
+                if (!$skip)
+                    array_push($temp, $val);
+            }
+            $this->info['mutationIndices'] = $temp;
+
+            for ($i = count($this->info['mutationIndices']) - 1; $i >= 0; --$i)
+            {
+                $result->formatted = substr_replace($result->formatted, '</span>', $this->info['mutationIndices'][$i][1], 0);
+                $result->formatted = substr_replace($result->formatted, '<span class="bg-primary">', $this->info['mutationIndices'][$i][0], 0);
+            }
         }
         return $result;
     }
@@ -77,7 +105,7 @@ class DNASequence
                     $this->mutateRestrictionSite($pos + 2, $site);
             }
             ++$this->info['iterations'];
-            if ($lastFound == $this->found || $this->info['iterations'] > 100)
+            if ($lastFound == $this->found || $this->info['iterations'] > 5000)
                 $finished = true;
         }
     }
@@ -85,6 +113,7 @@ class DNASequence
     /**
      * @param int $pos              The start position of the reading frame.
      * @param RestrictionSite $site The current site being mutated.
+     * @throws ReadingFrameException
      */
     private function mutateRestrictionSite(int $pos, RestrictionSite $site)
     {
@@ -112,7 +141,7 @@ class DNASequence
                 $site->getName(),
                 $site->getNucleotides(),
                 $siteStart,
-                substr($this->sequence, $siteStart - 2, 6 + 2)
+                substr($this->sequence, $siteStart - 1, 6 + 2)
             )
         );
     }
