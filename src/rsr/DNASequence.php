@@ -17,7 +17,15 @@ class DNASequence
      */
     private $mutator;
 
+    /**
+     * @var array
+     */
     public $info;
+
+    /**
+     * @var int
+     */
+    public const MAX_ITERATIONS = 5000;
 
     public function __construct(string $sequence)
     {
@@ -105,7 +113,7 @@ class DNASequence
                     $this->mutateRestrictionSite($pos + 2, $site);
             }
             ++$this->info['iterations'];
-            if ($lastFound == $this->found || $this->info['iterations'] > 5000)
+            if ($lastFound == $this->found || $this->info['iterations'] > DNASequence::MAX_ITERATIONS)
                 $finished = true;
         }
     }
@@ -125,7 +133,7 @@ class DNASequence
             {
                 $temp = 0;
                 for ($i = $pos; $i < $pos + 3; ++$i)
-                    $this->sequence[$i] = $codon[$temp++];
+                    $this->sequence[$i] = $codon[$temp++]; // Overwrite old codon with the mutated codon.
 
                 array_push($this->info['mutationIndices'], array($pos, $pos + 3));
                 return;

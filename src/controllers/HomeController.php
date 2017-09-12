@@ -102,8 +102,13 @@ class HomeController extends BaseController
             'timetaken' => (microtime(true) - $t1 . ' seconds')
         );
 
+        if ($dna->info['iterations'] > DNASequence::MAX_ITERATIONS)
+        {
+            $this->putData('hasNotice', true);
+            $this->putData('noticeText', 'The maximum iteration count was hit. Not all sites may have been fully removed.');
+        }
         $this->putData('info', $info);
-        $this->putData('showDebug', true);
+        $this->putData('showDebug', isset(Flight::request()->data->showdebug));
         $this->putData('inputdna', $parser->getRaw());
         $this->putData('dnaresult', $dnaresult);
         $this->putData('pageTitle', 'RSR Results');

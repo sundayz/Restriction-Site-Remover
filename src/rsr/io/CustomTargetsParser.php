@@ -40,8 +40,8 @@ class CustomTargetsParser
 
             $sequence = strtoupper($sequence);
             $this->sanitise($sequence);
-            if (strlen($sequence) < 1)
-                throw new RuntimeException('Parsing the custom target sequence provided failed. Check your input for errors.');
+            if (strlen($sequence) < 3 || strlen($sequence) > 16)
+                throw new RuntimeException('Parsing the custom target sequence provided failed. Check your input for errors. Custom targets must be longer than three nucleotides.');
 
             array_push($sites, new RestrictionSite($sequence, $name));
         }

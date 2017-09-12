@@ -23,4 +23,4 @@ _Note:_ If using vhosts, you should rewrite to ```%{DOCUMENT_ROOT}/index.php``` 
 ## Copyright
 License: MIT
 
-Read file [LICENSE](../blob/master/LICENSE).
+Read file [LICENSE](../master/LICENSE).
