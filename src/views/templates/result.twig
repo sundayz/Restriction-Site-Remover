@@ -24,7 +24,7 @@
 
         <div class="col-xs-12">
             <h4>Sequence Interpretation</h4>
-            <div class="well well-sm">{{ inputdna }}</div>
+            <div class="well well-sm rsr-break-word">{{ inputdna }}</div>
         </div>
 
         <div class="col-xs-12">
@@ -34,8 +34,8 @@
 
         <div class="col-xs-12">
             <h4>Formatted Data</h4>
-            <p>Silent muations are <span class="bg-primary">highlighted.</span> Line breaks every 100 characters.</p>
-            <div class="well well-sm" style="font-family:monospace;">{{ dnaresult.formatted | raw }}</div>
+            <p>Silent muations are <span class="bg-primary">highlighted</span>.</p>
+            <div class="well well-sm rsr-break-word" style="font-family:monospace;">{{ dnaresult.formatted | raw }}</div>
         </div>
     </div>
 </div>

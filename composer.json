@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "license": "proprietary",
+  "license": "MIT",
   "require": {
     "php": ">=7",
     "twig/twig": "^2.4",

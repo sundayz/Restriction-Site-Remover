@@ -19,3 +19,10 @@ Flight::route('GET /about', function()
     $about = new AboutController();
     $about->index();
 });
+
+/* Help */
+Flight::route('GET /help', function()
+{
+    $help = new HelpController();
+    $help->index();
+});

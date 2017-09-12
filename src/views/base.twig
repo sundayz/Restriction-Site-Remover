@@ -14,9 +14,23 @@
 
 <body>
     {% include 'header.twig' %}
+    {% if hasError %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <div class="alert alert-danger alert-dismissible show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ errorText }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     {% block content %}{% endblock %}
     <footer class="footer">
-        <p class="text-muted text-center">Restriction Site Remover &mdash; Copyright (&copy;) 2017 sundays.org.uk</p>
+        <p class="text-muted text-center">Restriction Site Remover &mdash; Copyright (&copy;) 2017 Restriction Site Remover</p>
     </footer>
 </body>
 </html>

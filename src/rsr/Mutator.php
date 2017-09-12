@@ -49,6 +49,22 @@ class Mutator
     }
 
     /**
+     * @param RestrictionSite $site The site we are checking.
+     * @param int $pos              The current position of the reading frame.
+     * @param int $siteStart        The start position of the restriction site.
+     * @param int $dnalen           The total length of the DNA.
+     * @return bool                 True if the frame can be moved.
+     */
+    public function canAdvanceFrame(RestrictionSite $site, int $pos, int $siteStart, int $dnalen): bool
+    {
+        // Out of string bounds.
+        if ($pos + 3 > $dnalen)
+            return false;
+
+        return !($pos + 3 >= ($siteStart + $site->getLength()));
+    }
+
+    /**
      * Returns the name of the amino acid this codon is coding for.
      * @param string $codon The codon to check.
      * @return string       The name of the amino acid.

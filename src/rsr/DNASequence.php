@@ -28,15 +28,27 @@ class DNASequence
         $this->info = array(
             'failedMutations' => 0,
             'iterations' => 0,
-            'mutationIndieces' => array()
+            'mutationIndices' => array()
         );
     }
 
     public function getResult(): DNAResult
     {
         $result = new DNAResult();
-        $result->raw = str_replace(array('^', '#'), array('', ''), $this->sequence);
-        $result->formatted = str_replace(array('^', '#'), array('<span class="bg-primary">', '</span>'), chunk_split($this->sequence, 100)); ;
+        $result->raw = $this->sequence;
+        $result->formatted = $this->sequence;
+        // Insert tags at the positions where we mutated sites, in reverse order.
+        // Sort indices based on the 2nd number.
+        $sorted = array();
+        foreach ($this->info['mutationIndices'] as $key => $val)
+            $sorted[$key] = $val[1];
+
+        array_multisort($sorted, SORT_ASC, $this->info['mutationIndices']);
+        for ($i = count($this->info['mutationIndices']) - 1; $i >= 0; --$i)
+        {
+            $result->formatted = substr_replace($result->formatted, '</span>', $this->info['mutationIndices'][$i][1], 0);
+            $result->formatted = substr_replace($result->formatted, '<span class="bg-primary">', $this->info['mutationIndices'][$i][0], 0);
+        }
         return $result;
     }
 
@@ -58,11 +70,11 @@ class DNASequence
 
                 ++$this->found;
                 if ($pos % 3 == 0)
-                    $this->mutateRestrictionSite($pos);
+                    $this->mutateRestrictionSite($pos, $site);
                 elseif (($pos + 1) % 3 == 0)
-                    $this->mutateRestrictionSite($pos + 1);
+                    $this->mutateRestrictionSite($pos + 1, $site);
                 else
-                    $this->mutateRestrictionSite($pos + 2);
+                    $this->mutateRestrictionSite($pos + 2, $site);
             }
             ++$this->info['iterations'];
             if ($lastFound == $this->found || $this->info['iterations'] > 100)
@@ -71,23 +83,37 @@ class DNASequence
     }
 
     /**
-     * @param int $pos The start position of the reading frame.
+     * @param int $pos              The start position of the reading frame.
+     * @param RestrictionSite $site The current site being mutated.
      */
-    private function mutateRestrictionSite(int $pos)
+    private function mutateRestrictionSite(int $pos, RestrictionSite $site)
     {
-        array_push($this->info['mutationIndieces'], $pos);
-        $codon = substr($this->sequence, $pos, 3);
-        if (!$this->mutator->silentMutation($codon))
+        $siteStart = $pos;
+        while ($this->mutator->canAdvanceFrame($site, $pos, $siteStart, strlen($this->sequence)))
         {
-            $this->info['failedMutations'] += 1;
-            return;
+            $codon = substr($this->sequence, $pos, 3);
+            if ($this->mutator->silentMutation($codon))
+            {
+                $temp = 0;
+                for ($i = $pos; $i < $pos + 3; ++$i)
+                    $this->sequence[$i] = $codon[$temp++];
+
+                array_push($this->info['mutationIndices'], array($pos, $pos + 3));
+                return;
+            }
+            else
+            {
+                $pos += 3;
+                $this->info['failedMutations'] += 1;
+            }
         }
-
-        // $this->sequence = substr_replace($this->sequence, $codon, $pos);
-        $temp = 0;
-        for ($i = $pos; $i < $pos + 3; ++$i)
-            $this->sequence[$i] = $codon[$temp++];
-
-        $this->sequence = str_replace($codon, "^" . $codon . "#", $this->sequence); // <strong> tags
+        throw new ReadingFrameException(
+            sprintf('No mutation could be induced on %s (%s), at nucleotide %d, near ...%s...',
+                $site->getName(),
+                $site->getNucleotides(),
+                $siteStart,
+                substr($this->sequence, $siteStart - 2, 6 + 2)
+            )
+        );
     }
 }

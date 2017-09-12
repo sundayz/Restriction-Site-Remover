@@ -3,12 +3,15 @@
 {% block content %}
 <div class="container">
     <h3>Restriction Site Remover</h3>
-    <p>Use this tool to remove common restriction sites from a DNA sequence.</p>
+    <p>
+    Use this tool to remove restriction sites from a DNA sequence.
+    <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter your DNA sequence in the text area. RSR will ignore any characters that do not belong in a DNA sequence."></span>
+    </p>
 
     <div class="row">
         <div class="col-sm-12 col-md-8">
-            <form action="./" method="post" id="dnaform">
-                <textarea class="dna-text-area" rows="8" cols="60" name="dnasequence" placeholder="Input DNA sequence..."></textarea>
+            <form action="/" method="post" id="dnaform">
+                <textarea class="dna-text-area" rows="8" cols="60" name="dnasequence" placeholder="Input DNA sequence...">{{ userinput.seq }}</textarea>
             </form>
             <button type="submit" class="btn btn-default" form="dnaform">Submit</button>
         </div>
@@ -17,9 +20,8 @@
             <div class="form-group form-group-multiple-selects">
                 <div class="input-group input-group-multiple-select col-xs-12">
                     <select class="form-control" name="sites[]" form="dnaform">
-                        <option>Select one</option>
+                        <option selected disabled hidden>Select one</option>
                         <option value="all">All</option>
-                        <option value="custom">Custom</option>
                         {% for rsite in rsdata %}
                             <option value="{{ rsite.getNucleotides() }}">{{ rsite.getName() }} ({{ rsite.getNucleotides() }})</option>
                         {% endfor %}
@@ -29,9 +31,16 @@
     			</span>
                 </div>
             </div>
+            <textarea class="dna-text-area" form="dnaform" name="customtargets" rows="4" placeholder="Target custom sequences...">{{ userinput.customtargets }}</textarea>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 <script>
     $(function(){
