@@ -32,7 +32,6 @@ class DNASequence
         $this->sequence = $sequence;
         $this->found = 0;
         $this->mutator = new Mutator();
-        $this->mutationIndices = array();
         $this->info = array(
             'failedMutations' => 0,
             'iterations' => 0,
@@ -48,7 +47,7 @@ class DNASequence
         $result = new DNAResult();
         $result->raw = $this->sequence;
         $result->formatted = $this->sequence;
-        if (count($this->info['mutationIndices']) > 1)
+        if (count($this->info['mutationIndices']) >= 1)
         {
             // Insert tags at the positions where we mutated sites, in reverse order.
             // Sort indices based on the 2nd number.
