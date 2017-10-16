@@ -32,6 +32,8 @@
                     <select class="form-control" name="sites[]" form="dnaform">
                         <option selected disabled hidden>Select one</option>
                         <option value="all">All</option>
+                        <option value="rfc10">iGEM RFC 10</option>
+                        <option value="universal">iGEM Universal Compatibility</option>
                         {% for rsite in rsdata %}
                             <option value="{{ rsite.getNucleotides() }}">{{ rsite.getName() }} ({{ rsite.getNucleotides() }})</option>
                         {% endfor %}

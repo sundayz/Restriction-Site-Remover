@@ -99,4 +99,36 @@ class RestrictionSites
         }
         return $temp;
     }
+
+    /* Presets */
+    public static function pushRfc10(array &$array)
+    {
+        array_push($array, new RestrictionSite("GAATTC", "EcoRI"));
+        array_push($array, new RestrictionSite("TCTAGA", "XbaI"));
+        array_push($array, new RestrictionSite("ACTAGT", "SpeI"));
+        array_push($array, new RestrictionSite("CTGCAG", "PstI"));
+        array_push($array, new RestrictionSite("GCGGCCGC", "NotI"));
+    }
+
+    public static function pushUniversal(array &$array)
+    {
+        array_push($array, new RestrictionSite("GAATTC", "EcoRI"));
+        array_push($array, new RestrictionSite("TCTAGA", "XbaI"));
+        array_push($array, new RestrictionSite("ACTAGT", "SpeI"));
+        array_push($array, new RestrictionSite("CTGCAG", "PstI"));
+        array_push($array, new RestrictionSite("GCGGCCGC", "NotI"));
+        array_push($array, new RestrictionSite("GCTAGC", "NheI"));
+        array_push($array, new RestrictionSite("CAGCTG", "PvuII"));
+        array_push($array, new RestrictionSite("CTCGAG", "XhoI"));
+        array_push($array, new RestrictionSite("CCTAGG", "AvrII"));
+        array_push($array, new RestrictionSite("GCTCTTC", "SapI"));
+        array_push($array, new RestrictionSite("GAAGAGC", "SapI2"));
+        array_push($array, new RestrictionSite("AGATCT", "BglII"));
+        array_push($array, new RestrictionSite("GGATCC", "BamHI"));
+        array_push($array, new RestrictionSite("GCCGGC", "NgoMIV"));
+        array_push($array, new RestrictionSite("ACCGGT", "AgeI"));
+        array_push($array, new RestrictionSite("GAAGAC", "BpiI"));
+        array_push($array, new RestrictionSite("GAAGAC", "BbsI"));
+        array_push($array, new RestrictionSite("GGTCTC", "BsaI"));
+    }
 }

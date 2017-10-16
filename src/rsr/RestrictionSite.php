@@ -18,6 +18,10 @@ class RestrictionSite
      */
     private $len;
 
+    /**
+     * @param string $nucleotides
+     * @param string $name
+     */
     public function __construct(string $nucleotides, string $name)
     {
         $this->nucleotides = $nucleotides;
@@ -77,6 +81,8 @@ class RestrictionSite
                 break;
             }
         }
-        return new RestrictionSite(implode("", $arr), $this->name . ' Complement');
+        $nucleotides = strrev(implode("", $arr));
+        $name = $this->name . ' Complement';
+        return new RestrictionSite($nucleotides, $name);
     }
 }

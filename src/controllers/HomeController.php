@@ -58,6 +58,15 @@ class HomeController extends BaseController
                 $restrictionSites = RestrictionSites::getSites(); // Get all the sites. ignore the other input.
                 break;
             }
+            else if ($nucleotides == "rfc10")
+            {
+                RestrictionSites::pushRfc10($restrictionSites);
+                continue;
+            }
+            else if ($nucleotides == "universal")
+            {
+                RestrictionSites::pushUniversal($restrictionSites);
+            }
             $val = RestrictionSites::getSite($nucleotides);
             if ($val == null)
                 continue;
