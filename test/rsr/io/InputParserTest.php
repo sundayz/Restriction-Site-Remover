@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers InputParserTest
+ * @covers InputParser
  */
 class InputParserTest extends TestCase
 {
@@ -27,5 +27,25 @@ class InputParserTest extends TestCase
         $parser = new InputParser($dna);
         $parser->cleanDNA();
         $this->assertEquals("ATGCGC", $parser->createDNASequence()->sequence);
+    }
+
+    /**
+     * @covers InputParser::sanitise
+     */
+    public function testSanitise()
+    {
+        $dna = "zzzAGCGGCpGCGC;1";
+        InputParser::sanitise($dna);
+        $this->assertEquals("AGCGGCGCGC", $dna);
+    }
+
+    /**
+     * @covers InputParser::getRaw
+     */
+    public function testGetRaw()
+    {
+        $dna = "agcagcGCA";
+        $parser = new InputParser($dna);
+        $this->assertEquals("AGCAGCGCA", $parser->getRaw());
     }
 }
