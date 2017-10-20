@@ -6,6 +6,9 @@
  */
 class Mutator
 {
+    /**
+     * @var array
+     */
     private $groups;
 
     public function __construct()

@@ -1,6 +1,6 @@
 <?php
 
-class AboutController extends BaseController
+class AboutController extends BaseController implements IndexedController
 {
     public function index()
     {

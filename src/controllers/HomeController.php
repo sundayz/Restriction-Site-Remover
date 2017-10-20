@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController
+class HomeController extends BaseController implements IndexedController
 {
     public function index()
     {

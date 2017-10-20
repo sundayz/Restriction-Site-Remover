@@ -2,8 +2,14 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers CustomTargetsParser
+ */
 class CustomTargetsParserTest extends TestCase
 {
+    /**
+     * @covers CustomTargetsParser::parseSites
+     */
     public function testParser()
     {
         $text = 'Sequence, AGTCT';

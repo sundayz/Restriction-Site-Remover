@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Container object for RSR output.
+ */
 class DNAResult
 {
     /**

@@ -2,8 +2,14 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers DNASequence
+ */
 class DNASequenceTest extends TestCase
 {
+    /**
+     * @covers DNASequence::findRestrictionSites
+     */
     public function testDoesNotMutate()
     {
         $dnaSequence = 'ATTAATAGGTATCCGGGATATATAT'; // Should never be mutated when checked against ASP718I and TspMI.

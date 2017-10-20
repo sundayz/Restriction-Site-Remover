@@ -25,7 +25,7 @@ class DNASequence
     /**
      * @var int
      */
-    public const MAX_ITERATIONS = 5000;
+    const MAX_ITERATIONS = 5000;
 
     public function __construct(string $sequence)
     {

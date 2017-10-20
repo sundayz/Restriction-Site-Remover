@@ -1,6 +1,6 @@
 <?php
 
-class HelpController extends BaseController
+class HelpController extends BaseController implements IndexedController
 {
     public function index()
     {
