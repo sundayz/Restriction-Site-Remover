@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <phpunit bootstrap="./bootstrap.php">
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./public</directory>
+                <directory>./vendor</directory>
+                <directory>./test</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
     <testsuites>
         <testsuite name="RSR">
             <directory>./test</directory>
