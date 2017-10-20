@@ -1,9 +1,9 @@
 # Restriction Site Remover
 
 ## Build status
-| Branch | master |
-|:------:|:------:|
-| Status |[![Build Status](https://travis-ci.org/sundayz/Restriction-Site-Remover.svg)](https://travis-ci.org/sundayz/Restriction-Site-Remover)|
+| Branch | Status | Coverage |
+|:------:|:------:|:--------:|
+|**master**|[![Build Status](https://travis-ci.org/sundayz/Restriction-Site-Remover.svg)](https://travis-ci.org/sundayz/Restriction-Site-Remover)| [![Coverage Status](https://coveralls.io/repos/github/sundayz/Restriction-Site-Remover/badge.svg?branch=master)](https://coveralls.io/github/sundayz/Restriction-Site-Remover?branch=master)|
 
 ## Dependencies
 - PHP >= 7.1
