@@ -39,7 +39,7 @@ class CustomTargetsParser
             }
 
             $sequence = strtoupper($sequence);
-            Inputparser::sanitise($sequence);
+            InputParser::sanitise($sequence);
             if (strlen($sequence) < 3 || strlen($sequence) > 16)
                 throw new RuntimeException('Parsing the custom target sequence provided failed. Check your input for errors. Custom targets must be longer than three nucleotides.');
 
