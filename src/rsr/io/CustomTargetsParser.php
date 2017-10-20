@@ -39,36 +39,12 @@ class CustomTargetsParser
             }
 
             $sequence = strtoupper($sequence);
-            $this->sanitise($sequence);
+            Inputparser::sanitise($sequence);
             if (strlen($sequence) < 3 || strlen($sequence) > 16)
                 throw new RuntimeException('Parsing the custom target sequence provided failed. Check your input for errors. Custom targets must be longer than three nucleotides.');
 
             array_push($sites, new RestrictionSite($sequence, $name));
         }
         return $sites;
-    }
-
-    /**
-     * Removes any character that does not match a nucleotide.
-     * @param $str string The string to clean.
-     */
-    public function sanitise(string &$str)
-    {
-        $temp = $str;
-        $str = '';
-        for ($i = 0; $i < strlen($temp); ++$i)
-        {
-            switch ($temp[$i])
-            {
-                case 'A':
-                case 'T':
-                case 'G':
-                case 'C':
-                    $str .= $temp[$i];
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 }

@@ -19,7 +19,7 @@ class HomeController extends BaseController implements IndexedController
             exit(1);
         }
         $parser = new InputParser(Flight::request()->data->dnasequence);
-        $parser->sanitise();
+        $parser->cleanDNA();
         if ($parser->getRaw() == '')
         {
             $this->showErrorMessage('The DNA provided was a malformed format.');

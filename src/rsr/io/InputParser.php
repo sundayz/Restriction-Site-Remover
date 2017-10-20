@@ -23,25 +23,32 @@ class InputParser
     }
 
     /**
-     * Removes any character that does not match a nucleotide.
+     * Removes non-nucleotide characters from DNA.
      */
-    public function sanitise()
+    public function cleanDNA()
     {
-        $temp = "";
-        for ($i = 0; $i < strlen($this->dna); ++$i)
-        {
-            switch ($this->dna[$i])
-            {
-            case 'A':
-            case 'T':
-            case 'G':
-            case 'C':
-                $temp .= $this->dna[$i];
-                break;
-            default:
-                break;
+        self::sanitise($this->dna);
+    }
+
+    /**
+     * Removes any character that does not match a nucleotide.
+     * @param $str string The string to clean.
+     */
+    public static function sanitise(string &$str)
+    {
+        $temp = $str;
+        $str = '';
+        for ($i = 0; $i < strlen($temp); ++$i) {
+            switch ($temp[$i]) {
+                case 'A':
+                case 'T':
+                case 'G':
+                case 'C':
+                    $str .= $temp[$i];
+                    break;
+                default:
+                    break;
             }
         }
-        $this->dna = $temp;
     }
 }

@@ -86,7 +86,7 @@ class RestrictionSites
 
     /**
      * Returns an array of RestrictionSite objects.
-     * @return array
+     * @return RestrictionSite[]
      */
     public static function getSites(): array
     {
@@ -101,6 +101,10 @@ class RestrictionSites
     }
 
     /* Presets */
+
+    /**
+     * @param array $array The array in which to insert the RestrictionSite objects for iGEM RFC 10.
+     */
     public static function pushRfc10(array &$array)
     {
         array_push($array, new RestrictionSite("GAATTC", "EcoRI"));
@@ -110,6 +114,9 @@ class RestrictionSites
         array_push($array, new RestrictionSite("GCGGCCGC", "NotI"));
     }
 
+    /**
+     * @param array $array The array in which to insert the RestrictionSite objects for iGEM Universal Compatibility.
+     */
     public static function pushUniversal(array &$array)
     {
         array_push($array, new RestrictionSite("GAATTC", "EcoRI"));
