@@ -22,4 +22,16 @@ class DNASequenceTest extends TestCase
         $result = $dna->getResult();
         $this->assertEquals('ATTAATAGGTATCCGGGATATATAT', $result->raw);
     }
+
+    /**
+     * @covers DNASequence::getResult
+     */
+    public function testMutationOccurs()
+    {
+        $input = 'ATGATATCTCCCCTATCTACTCTATCTTGCTTTCTATCCGGATCCTATTCTACCTAATATAGATCTGATCACTTTATCGCTGCATGTCCC';
+        $dna = new DNASequence($input);
+        $dna->findRestrictionSites(RestrictionSites::getSites()); // All sites.
+        $result = $dna->getResult();
+        $this->assertNotEquals($input, $result->raw);
+    }
 }

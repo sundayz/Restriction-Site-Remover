@@ -66,6 +66,7 @@ class HomeController extends BaseController implements IndexedController
             else if ($nucleotides == "universal")
             {
                 RestrictionSites::pushUniversal($restrictionSites);
+                continue;
             }
             $val = RestrictionSites::getSite($nucleotides);
             if ($val == null)

@@ -15,9 +15,9 @@
             <p><strong>Restriction sites found: </strong>{{ info.found }}</p>
             <p><strong>Time taken: </strong>{{ info.timetaken }}</p>
             <pre>
-            {% for site in sites %}
+{% for site in sites %}
 {{ site.getName() }} ({{ site.getNucleotides() }}) Checked
-            {% endfor %}
+{% endfor %}
             </pre>
         </div>
         {% endif %}
