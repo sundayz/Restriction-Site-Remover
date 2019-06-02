@@ -12,7 +12,7 @@ class MutatorTest extends TestCase
      */
     private $mutator;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->mutator = new Mutator();
     }
