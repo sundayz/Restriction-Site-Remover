@@ -4,6 +4,7 @@
 | Branch | Status | Coverage |
 |:------:|:------:|:--------:|
 |**master**|[![Build Status](https://travis-ci.org/sundayz/Restriction-Site-Remover.svg)](https://travis-ci.org/sundayz/Restriction-Site-Remover)| [![Coverage Status](https://coveralls.io/repos/github/sundayz/Restriction-Site-Remover/badge.svg?branch=master)](https://coveralls.io/github/sundayz/Restriction-Site-Remover?branch=master)|
+|**v2**|[![Build Status](https://travis-ci.org/sundayz/Restriction-Site-Remover.svg)](https://travis-ci.org/sundayz/Restriction-Site-Remover)| [![Coverage Status](https://coveralls.io/repos/github/sundayz/Restriction-Site-Remover/badge.svg?branch=v2)](https://coveralls.io/github/sundayz/Restriction-Site-Remover?branch=v2)|
 
 ## Dependencies
 - PHP >= 7.1
