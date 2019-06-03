@@ -2,7 +2,7 @@
 <phpunit bootstrap="./bootstrap.php">
     <filter>
         <whitelist>
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./src/rsr</directory>
             <exclude>
                 <directory>./public</directory>
                 <directory>./vendor</directory>
